@@ -1,26 +1,73 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { FC } from "react";
+import "./App.css";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Outlet,
+} from "react-router-dom";
+import LoginPage from "./pages/Login";
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import RegisterPage from "./pages/Register";
+import BoardPage from "./pages/Board";
+import CardPage from "./pages/Card";
+import KanbanListPage from "./pages/KanbanList";
+import ChangePassword from "./pages/ChangePassword";
+import { NavbarProps } from "./components/Navbar/Navbar.types";
+import {
+  LoginProvider,
+  useLoginContext,
+} from "./contexts/LoginContext/LoginContext";
+import { KanbanProvider } from "./contexts/KanbanContext/KanbanContext";
 
-function App() {
+
+
+
+
+const NavbarContainer: FC<NavbarProps> = (props) => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Navbar />
+      <Outlet />
+    </>
   );
-}
+};
+
+const App = () => {
+  const { isLoggedIn } = useLoginContext();
+
+  /**this method is used in context! */
+  // const handleLogout: NavbarProps["onLoggedOut"] = () => {
+  //   localStorage.removeItem("token");
+  //   setToken("");
+  //   setIsLoggedIn(false);
+  // };
+
+  return (
+    <LoginProvider>
+      <KanbanProvider>
+        <Router>
+          <Routes>
+            <Route element={<NavbarContainer />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/change-password" element={<ChangePassword />} />
+              {isLoggedIn ? (
+                <>
+                <Route path="/board" element={<BoardPage />} />
+                <Route path="/kanbanlist" element={<KanbanListPage />} />
+                <Route path="/card" element={<CardPage />} />
+           
+                </>
+              ) : null}
+            </Route>
+          </Routes>
+        </Router>
+      </KanbanProvider>
+    </LoginProvider>
+  );
+};
 
 export default App;

@@ -1,0 +1,1 @@
+export type ListProps = {dispatches: ContextBoardMemberType, boardMembers:BoardMember[]};
