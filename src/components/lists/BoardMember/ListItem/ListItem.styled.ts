@@ -1,8 +1,8 @@
 import styled from "styled-components";
 export const Styled = styled.div`
 display: flex;
-// justify-content:center;
-// align-items: center;
+justify-content:center;
+align-items: center;
 padding: 1rem;
   .delete-button{
     idth: 100%;

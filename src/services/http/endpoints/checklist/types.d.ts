@@ -1,7 +1,7 @@
 export type CreateChecklistRequestPayload = {
 	cardId:number,
-	title: string;
-	
+	title: string,
+	items?:any,
 	
 	
 	
@@ -11,8 +11,8 @@ export type CreateChecklistRequestPayload = {
 export type CreateChecklistResponseType = {
 	data: {
 	cardId:number,
-	title: string;
-	
+	title: string,
+	items:any,
 
 	}
 	

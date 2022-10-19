@@ -9,14 +9,22 @@ import Select from "react-select";
 const AddLabelForm: FC<AddLabelFormProps> = (props) => {
   const [value, setValue] = useState<string>("");
   const [labels, setLabels] = useState<any>();
-  // const handleChange: InputProps["onChange"] = (e, val) => {
-  //   setValue(val);
-  // };
+  const handleChange: InputProps["onChange"] = (e, val) => {
+    setValue(val);
+  };
 
   // const handleChange = (event: React.ChangeEvent<{ value: any }>) => {
   //   setValue(event.target.value as string);
   // };
 
+  
+  const [valueState,setValueState] = useState("")
+  // create a function that handle the React-select event and
+  // save the value of that event on an state every time the component change
+      const handler = (event:any) => {
+          const value = event.value
+          setValueState(value)
+      }
   const handleAddClick = () => {
     setLabels((prev: any) => [
       ...prev,
@@ -35,17 +43,16 @@ const AddLabelForm: FC<AddLabelFormProps> = (props) => {
 
     useEffect(() => {
       label.get().then(({ data }) => {
-         setLabels((prev) => (data ));
+         setLabels((prev:any) => (data ));
        });
      }, []);
   return (
     <Styled>
       
-      <div style={{ marginTop: "10vh" }}>
         <Box title="Add Label">
           <span className="list-span"></span>
 
-          <Select 
+          <Select onChange={handler}
          
            options={labelItems}
          />
@@ -56,7 +63,7 @@ const AddLabelForm: FC<AddLabelFormProps> = (props) => {
             <span className="material-symbols-outlined">library_add</span>
           </button>
         </Box>
-      </div>
+
     </Styled>
   );
 };

@@ -1,1 +1,1 @@
-export type AddChecklistItemFormProps = { dispatches:ContextChecklistItemType, checklistId:number} ;
+export type AddChecklistItemFormProps = { dispatches:ContextChecklistItemType, checklistId:number, checklistItemId:number} ;

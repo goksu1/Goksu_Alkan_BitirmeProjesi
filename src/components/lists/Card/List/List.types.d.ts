@@ -1,1 +1,1 @@
-export type ListProps = {dispatches: ContextCardType, cards:Card[], result:any, destination:any,  position: number};
+export type ListProps = {dispatches: ContextCardType, cards:Card[], result?:any, destination?:any,  position?: number};

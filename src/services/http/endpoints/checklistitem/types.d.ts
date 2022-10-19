@@ -1,8 +1,11 @@
 export type CreateChecklistitemRequestPayload = {
 
-	checklistId:number,
+	checklistId?:number,
 	isChecked:boolean,
 	title:string,
+	items?:any,
+	
+
 
 };
 
@@ -11,5 +14,6 @@ export type CreateChecklistitemResponseType = {
 	checklistId:number,
 	isChecked:boolean,
 	title:string,
+	items?:any,
 	}
 };

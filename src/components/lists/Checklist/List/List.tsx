@@ -6,7 +6,7 @@ import { useKanbanContext } from "../../../../contexts/KanbanContext/KanbanConte
 
 const List: FC<ListProps> = (props) => {
 const { state } = useKanbanContext();
-console.log("props", props)
+
   return (
     <Styled>
       {props.checklists?.map((checklist:Checklist) => (
@@ -19,7 +19,7 @@ console.log("props", props)
           boardId={state.boardId}
           listId={state.listId}
           checklistId={state.checklistId}
-          cardId={state.cardId}                     />
+          cardId={state.cardId} items={props.items}                    />
               
       ))}
       

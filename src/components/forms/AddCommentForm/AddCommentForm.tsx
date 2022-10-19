@@ -27,7 +27,7 @@ const AddCommentForm: FC<AddCommentFormProps> = (props) => {
 
   return (
     <Styled>
-      <div style={{ marginTop: "10vh" }}>
+      <>
         <Box title="Add Comment">
           <span className="list-span">
           </span>
@@ -41,7 +41,7 @@ const AddCommentForm: FC<AddCommentFormProps> = (props) => {
             <span className="material-symbols-outlined">library_add</span>
           </button>
         </Box>
-      </div>
+      </>
     </Styled>
   );
 };

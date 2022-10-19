@@ -1,10 +1,10 @@
 import React, { FC, useState } from "react";
 import { useLoginContext } from "../../../contexts/LoginContext/LoginContext";
 import { list } from "../../../services/http/endpoints/list";
-import { Input, Box } from "../../elements";
+import { Input } from "../../elements";
 import { InputProps } from "../../elements/Input/Input.types";
 
-import { Styled } from "./AddListForm.styled";
+import { CardWrapper} from "./AddListForm.styled";
 import { AddListFormProps } from "./AddListForm.types";
 
 const AddListForm: FC<AddListFormProps> = (props) => {
@@ -32,10 +32,8 @@ const AddListForm: FC<AddListFormProps> = (props) => {
   };
 
   return (
-    <Styled>
-        <Box title="Add List">
-          <span className="list-span">
-            {" "}
+        <CardWrapper title="Add List">
+             <span className="list-span">
             {username}; You can create amazing list!
           </span>
           <Input
@@ -47,8 +45,9 @@ const AddListForm: FC<AddListFormProps> = (props) => {
             Add
             <span className="material-symbols-outlined">library_add</span>
           </button>
-        </Box>
-    </Styled>
+       
+        </CardWrapper>
+ 
   );
 };
 

@@ -4,11 +4,11 @@ import { Input, Card, Button } from "../../../elements";
 import { InputProps } from "../../../elements/Input/Input.types";
 import { ListItemProps } from "./ListItem.types";
 
-import { Styled } from "./ListItem.styled";
+import { CardChecklistItem, Styled } from "./ListItem.styled";
 import { useKanbanContext } from "../../../../contexts/KanbanContext/KanbanContext";
 
 const ListItem: FC<ListItemProps> = (props) => {
-  const { setChecklistItemId } = useKanbanContext();
+  const { state, setChecklistItemId } = useKanbanContext();
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [value, setValue] = useState<string>(props.title);
 
@@ -18,14 +18,14 @@ const ListItem: FC<ListItemProps> = (props) => {
     checklistitem
       .update(Number(props.id), {
         title: value,
-        checklistId: props.checklistId,
-        isChecked: event.target.checked,
+        isChecked: !props.isChecked,
       })
       .then(() => {
+    
         props.dispatches.updateChecklistItem(
           Number(props.id),
           value,
-          event.target.checked
+          !props.isChecked
         );
       })
       .finally(() => setIsEdit(false));
@@ -41,12 +41,12 @@ const ListItem: FC<ListItemProps> = (props) => {
     setChecklistItemId(props.id);
   };
   return (
-    <Styled onClick={handleOnClick}>
-      <Card title="Added ChecklistItem">
+
+      <CardChecklistItem title="Added ChecklistItem"  onClick={handleOnClick}>
         <label
           data-noredirect="true"
           style={{
-            textDecoration: props.isChecked ? "line-through" : undefined,
+            textDecoration: props.isChecked ? "line-through" : "none",
           }}
         >
           <input
@@ -59,15 +59,15 @@ const ListItem: FC<ListItemProps> = (props) => {
           <span>{props.title}</span>
         </label>
 
-        <div className="delete-list">
+        <div className="delete-checklist">
           <button className="delete-button" onClick={handleDeleteList}>
             Delete
             <span className="material-symbols-outlined">delete</span>
           </button>
         </div>
      
-      </Card>
-    </Styled>
+      </CardChecklistItem>
+   
   );
 };
 

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 export const Styled = styled.div`
   padding: 0.5rem;
-  display: flex;
+  flex-direction:column;
   flex-wrap:wrap;
 
   .list-item {

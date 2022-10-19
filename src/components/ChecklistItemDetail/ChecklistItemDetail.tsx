@@ -32,20 +32,29 @@ const Comment = () => {
     },
   };
 
- 
+  // data.data.checklists[0].map((checklist:any)=>{
+  //   return checklist.items
+  // })
   useEffect(() => {
     card.getById(state.cardId).then((data) => {
-        setChecklistItems(data.data.checklists.map((checklist:any)=>{
-          return checklist.items
-        }));
+      console.log('data', data)
+        setChecklistItems((prev)=>{
+          let list:any = []
+          data.data.checklists.forEach((checklist:any)=>{
+            console.log('checklist', checklist)
+           list=[...list, ...checklist.items]
+      console.log('list', list)
+          })
+          return list
+        });
+
     });
   }, [state.cardId]);
   return (
-    <div style={{ marginTop: "10vh" }}>
-      <AddChecklistItemForm dispatches={dispatches} checklistId={state.checklistId} />
-      <ChecklistItem dispatches={dispatches} checklistitems={checklistItems}  />
-    
-    </div>
+  <>
+      <AddChecklistItemForm dispatches={dispatches} checklistId={state.checklistId} checklistItemId={state.checklistItemId}/>
+      <ChecklistItem dispatches={dispatches} checklistItems={checklistItems} checklists={[]} />
+      </>
   );
 };
 

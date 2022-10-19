@@ -3,7 +3,7 @@
 import React from "react";
 
 export type ListItemProps = {
-  title?: string;
+  title: string;
   id: number;
   dispatches: ContextCardType;
   listId: number;

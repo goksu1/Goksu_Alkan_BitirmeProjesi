@@ -3,7 +3,7 @@ import AddBoardMemberForm from "../forms/AddBoardMemberForm";
 import  List  from "../lists/BoardMember/List";
 import { useKanbanContext } from "../../contexts/KanbanContext/KanbanContext";
 import { boardMember } from "../../services/http/endpoints/boardMember";
-
+import { user } from "../../services/http/endpoints/user";
 
 const BoardMemberDetail = () => {
   const { state } = useKanbanContext();
@@ -29,19 +29,28 @@ const BoardMemberDetail = () => {
       }))
     }
   };
- 
+ console.log('boardMembers', boardMembers)
   useEffect(() => {
    boardMember.get(state.boardId).then(({ data }) => {
-      setBoardMembers((prev) => (data ));
+      setBoardMembers((prev) => (data.map((user:any)=>{
+        return user.user
+      }) ));
+      console.log('data', data)
     });
-  }, []);
+  }, [state.boardId]);
+
+  // useEffect(() => {
+  //   boardMember.get().then(({ data }) => {
+  //     setBoardMembers((prev) => (data ));
+  //    });
+  //  }, []);
 
   return (
-    <div style={{ marginTop: "10vh" }}>
+    <>
       <AddBoardMemberForm dispatches={dispatches} boardId={state.boardId} />
       <List dispatches={dispatches} boardMembers={boardMembers}  />
      
-    </div>
+    </>
   );
 };
 

@@ -72,12 +72,12 @@ export const ModalFooter = styled.div`
 `;
 
 export const Button = styled.button`
-  background: #7b2cbf;
-  color: white;
+  background: white;
+  color: black;
   font-size: 1em;
   margin: 10px;
   padding: 5px 10px;
-  border: 2px solid #7b2cbf;
+  border: 2px solid white;
   border-radius: 3px;
   cursor: pointer;
 `;

@@ -67,4 +67,7 @@ padding: 1rem;
   justify:space-between;
   align-items: center;
  }
+ .material-symbols-outlined{
+  color: black;
+ }
 `;

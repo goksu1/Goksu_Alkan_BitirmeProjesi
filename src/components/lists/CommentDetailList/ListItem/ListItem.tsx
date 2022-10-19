@@ -18,7 +18,7 @@ const ListItem: FC<ListItemProps> = (props) => {
   const handleOnClick = () => {
     setCommentId(props.id);
   };
-  console.log('props', props)
+  
   return (
     <Styled onClick={handleOnClick}>
       <Card title="Added Comment">

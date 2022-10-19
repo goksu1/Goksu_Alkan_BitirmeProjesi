@@ -1,1 +1,1 @@
-export type ListProps = {dispatches: ContextlistType, checklists:Checklist[]};
+export type ListProps = {dispatches: ContextlistType, checklists:Checklist[], items?:any};

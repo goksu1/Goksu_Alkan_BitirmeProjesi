@@ -40,7 +40,7 @@ const ListItem: FC<ListItemProps> = (props) => {
   return (
    
     <Styled>
-      <Card className="boardCard" title="Added Board" onClick={props.onClick}>
+      <Card title="Added Board" onClick={props.onClick}>
      
         <div className="delete-button" data-noredirect="true">
           <button

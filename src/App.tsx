@@ -11,8 +11,8 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import RegisterPage from "./pages/Register";
 import BoardPage from "./pages/Board";
-import CardPage from "./pages/Card";
-import KanbanListPage from "./pages/KanbanList";
+import CardPage from "./components/Card";
+import KanbanListPage from "./components/KanbanList";
 import ChangePassword from "./pages/ChangePassword";
 import { NavbarProps } from "./components/Navbar/Navbar.types";
 import {
@@ -20,10 +20,7 @@ import {
   useLoginContext,
 } from "./contexts/LoginContext/LoginContext";
 import { KanbanProvider } from "./contexts/KanbanContext/KanbanContext";
-
-
-
-
+import BoardMemberDetail from "./components/BoardMemberDetail";
 
 const NavbarContainer: FC<NavbarProps> = (props) => {
   return (
@@ -36,14 +33,6 @@ const NavbarContainer: FC<NavbarProps> = (props) => {
 
 const App = () => {
   const { isLoggedIn } = useLoginContext();
-
-  /**this method is used in context! */
-  // const handleLogout: NavbarProps["onLoggedOut"] = () => {
-  //   localStorage.removeItem("token");
-  //   setToken("");
-  //   setIsLoggedIn(false);
-  // };
-
   return (
     <LoginProvider>
       <KanbanProvider>
@@ -59,7 +48,7 @@ const App = () => {
                 <Route path="/board" element={<BoardPage />} />
                 <Route path="/kanbanlist" element={<KanbanListPage />} />
                 <Route path="/card" element={<CardPage />} />
-           
+                <Route path="/board-member" element={<BoardMemberDetail />} />
                 </>
               ) : null}
             </Route>

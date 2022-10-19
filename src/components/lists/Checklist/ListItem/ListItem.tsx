@@ -4,8 +4,9 @@ import { Input, Card, Button } from "../../../elements";
 import { InputProps } from "../../../elements/Input/Input.types";
 import { ListItemProps } from "./ListItem.types";
 
-import { Styled } from "./ListItem.styled";
+import { ChecklistCard, Styled } from "./ListItem.styled";
 import { useKanbanContext } from "../../../../contexts/KanbanContext/KanbanContext";
+import ChecklistItemDetail from "../../../ChecklistItemDetail";
 
 const ListItem: FC<ListItemProps> = (props) => {
   const { setChecklistId } = useKanbanContext();
@@ -27,14 +28,13 @@ const ListItem: FC<ListItemProps> = (props) => {
       .update(Number(props.id), {
         title: value,
         cardId: props.cardId,
-    
+    items:props.items,
       
       })
       .then(() => {
         props.dispatches.updateChecklist(
           Number(props.id),
           value,
-          event.target.checked
         );
       })
       .finally(() => setIsEdit(false));
@@ -49,9 +49,33 @@ const ListItem: FC<ListItemProps> = (props) => {
   const handleOnClick = () => {
     setChecklistId(props.id);
   };
+
+  // const totalIsCheckedItem = () => {
+  //   let total = 0;
+  //   checklist?.items.forEach((item) => {
+  //     if (item.isChecked === true) {
+  //       total += 1;
+  //     }
+  //   });
+  //   return total;
+  // };
   return (
-    <Styled onClick={handleOnClick}>
-      <Card title="Added Checklist">
+    
+      <ChecklistCard title="Added Checklist" onClick={handleOnClick}>
+        <h1>Added Checklist</h1>
+        <ChecklistItemDetail />
+        {/* <Card
+        value={
+          totalIsCheckedItem() === 0 && checklist?.items.length === 0
+            ? 0
+            : (totalIsCheckedItem() / checklist?.items.length!) * 100
+        }
+        title="df"
+        /> */}
+       
+     
+      {/* {checklist?.items.map((item) => {
+        return <CardModalChecklistItem key={item.id} checklistItem={item} </Card> */}
         {/* <label
           data-noredirect="true"
           style={{
@@ -68,12 +92,7 @@ const ListItem: FC<ListItemProps> = (props) => {
           <span>{props.title}</span>
         </label> */}
 
-        <div className="delete-list">
-          <button className="delete-button" onClick={handleDeleteList}>
-            Delete
-            <span className="material-symbols-outlined">delete</span>
-          </button>
-        </div>
+
         <div className="list-item">
           {!isEdit ? (
             <>
@@ -104,8 +123,15 @@ const ListItem: FC<ListItemProps> = (props) => {
             </>
           )}
         </div>
-      </Card>
-    </Styled>
+        <div className="delete-list">
+          <button className="delete-button" onClick={handleDeleteList}>
+            Delete
+            <span className="material-symbols-outlined">delete</span>
+          </button>
+        </div>
+        
+      </ChecklistCard>
+    
   );
 };
 

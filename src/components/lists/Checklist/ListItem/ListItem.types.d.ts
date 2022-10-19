@@ -7,9 +7,9 @@ export type ListItemProps = {
   dispatches: ContextChecklistType;
   boardId: number;
   listId: number;
-
   checklistId:number;
   cardId: number;
+  items?:any;
 
   
 };

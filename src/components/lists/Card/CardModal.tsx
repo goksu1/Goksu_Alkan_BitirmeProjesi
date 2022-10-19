@@ -4,7 +4,6 @@ import {
   ModalBody,
   ModalClose,
   ModalContainer,
-  ModalFooter,
   ModalHeader,
   ModalOverlay,
   ModalTitle,
@@ -23,7 +22,6 @@ const Modal: FC<CardModalProps> = (props) => {
               <ModalClose onClick={() => props.hideModal()}>X</ModalClose>
             </ModalHeader>
             <ModalBody>{props.children}</ModalBody>
-            <ModalFooter>{props.footer}</ModalFooter>
           </ModalContainer>
         </ModalBlock>
       )}
@@ -31,7 +29,3 @@ const Modal: FC<CardModalProps> = (props) => {
   );
 };
 export default Modal;
-
-function hideModal(): void {
-
-}

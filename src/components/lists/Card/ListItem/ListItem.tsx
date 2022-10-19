@@ -9,24 +9,22 @@ import Modal from "../CardModal";
 import { Button } from "../CardModal.styled";
 import { useKanbanContext } from "../../../../contexts/KanbanContext/KanbanContext";
 import { Draggable } from "react-beautiful-dnd";
-import { useRef } from "react";
+// import { useRef } from "react";
 import { Popover, ArrowContainer } from "react-tiny-popover";
 
-import ChecklistPage from "../../../../pages/Checklist/Checklist";
+import ChecklistPage from "../../../Checklist";
 import Comment from "../../../Comment/Comment";
 import AddLabelForm from "../../../forms/AddLabelForm";
-import Label from "../../../lists/Label/List/List";
+// import Label from "../../../lists/Label/List/List";
 import dayjs, { Dayjs } from "dayjs";
 
 import { DatePicker } from "../../../DueDate/DatePicker";
 import ChecklistItemDetail from "../../../ChecklistItemDetail/ChecklistItemDetail";
-import Checklist  from "../../../lists/Checklist/List/List";
-
-
+import Checklist from "../../../lists/Checklist/List/List";
 
 export interface IAppProps {}
 const ListItem: FC<ListItemProps> = (props) => {
-  const clickMeButtonRef = useRef<HTMLButtonElement | undefined>();
+  // const clickMeButtonRef = useRef<HTMLButtonElement | undefined>();
   const { state, setCardId, setChecklistId } = useKanbanContext();
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [value, setValue] = useState<string>(props.title);
@@ -39,14 +37,14 @@ const ListItem: FC<ListItemProps> = (props) => {
     thirdPopover: false,
   });
 
-  const setUpdateDate= (date:Dayjs) =>{
-    card.update(Number(props.id),{
+  const setUpdateDate = (date: Dayjs) => {
+    card.update(Number(props.id), {
       duedate: date,
       title: props.title || "",
-      listId: props.listId
-    })
-    setDate(date)
-  }
+      listId: props.listId,
+    });
+    setDate(date);
+  };
   const handleEditClick = () => {
     props.dispatches.selectCard(Number(props.id));
     setIsEdit((prev) => !prev);
@@ -61,7 +59,7 @@ const ListItem: FC<ListItemProps> = (props) => {
       .update(Number(props.id), {
         title: value,
         listId: props.listId,
-        duedate: props.duedate
+        duedate: props.duedate,
       })
       .then(() => {
         props.dispatches.updateCard(Number(props.id), value);
@@ -77,43 +75,40 @@ const ListItem: FC<ListItemProps> = (props) => {
   const handleOnClick = () => {
     setCardId(props.id);
   };
- 
+
+  const dispatches: ContextChecklistType = {
+    addChecklist: (checklist: any) => {
+      setChecklists((prev) => [...prev, checklist]);
+    },
+
+    updateChecklist: (id: number, title: string) => {
+      setChecklists((prev) =>
+        prev.map((che) => ({
+          ...che,
+          title: id === che.id ? title : che.title,
   
-  
-   
-    const dispatches: ContextChecklistType = {
-      addChecklist: (checklist: any) => {
-        setChecklists((prev) => (
-           [...prev, checklist]
-        ))
-      },
-   
-      updateChecklist: (id: number, title: string, isChecked:boolean) => {
-        setChecklists((prev) => (
-           prev.map((che) => ({
-            ...che,
-            title: id === che.id ? title : che.title, 
-            isChecked: id === che.id ? isChecked : che.isChecked
-          }))
-        ));
-      },
-  
-      selectChecklist: (checklistId: number) => {
-        setChecklistId(checklistId)
-      },
-      
-      deleteChecklist: (checklistId: number) => {
-        setChecklists((prev) => prev.filter((checklist:Checklist)=>{
-          return checklist.id !== checklistId 
         }))
-      }
-    };
-  
-    useEffect(() => {
-      card.getById(state.cardId).then((data) => {
+      );
+    },
+
+    selectChecklist: (checklistId: number) => {
+      setChecklistId(checklistId);
+    },
+
+    deleteChecklist: (checklistId: number) => {
+      setChecklists((prev) =>
+        prev.filter((checklist: Checklist) => {
+          return checklist.id !== checklistId;
+        })
+      );
+    },
+  };
+
+  useEffect(() => {
+    card.getById(state.cardId).then((data) => {
       setChecklists(data.data.checklists);
-      });
-    }, [state.cardId]);
+    });
+  }, [state.cardId]);
   return (
     <Draggable draggableId={String(props.id)} index={props.index}>
       {(provided: any) => (
@@ -143,13 +138,10 @@ const ListItem: FC<ListItemProps> = (props) => {
                 </button>
               </div>
               <div>
-                <Button onClick={() => setActive(true)}>Open Modal</Button>
-
                 <Modal
-        
                   active={active}
                   hideModal={() => setActive(false)}
-                  footer={<Button>Footer Button</Button>}
+                
                 >
                   <h1>
                     <span> Card Title: {props.title}</span>
@@ -177,7 +169,10 @@ const ListItem: FC<ListItemProps> = (props) => {
                         <div
                           style={{ backgroundColor: "orange", opacity: 100 }}
                         >
-                          <DatePicker selectedDate={date} onChange={setUpdateDate} />
+                          <DatePicker
+                            selectedDate={date}
+                            onChange={setUpdateDate}
+                          />
                         </div>
                       </ArrowContainer>
                     )}
@@ -189,7 +184,9 @@ const ListItem: FC<ListItemProps> = (props) => {
                         })
                       }
                     >
-                      DueDate
+                      <span className="material-symbols-outlined">
+                        calendar_month
+                      </span>
                     </Button>
                   </Popover>
 
@@ -232,7 +229,7 @@ const ListItem: FC<ListItemProps> = (props) => {
                         })
                       }
                     >
-                      Label
+                      <span className="material-symbols-outlined">label</span>
                     </Button>
                   </Popover>
 
@@ -259,7 +256,7 @@ const ListItem: FC<ListItemProps> = (props) => {
                         <div
                           style={{ backgroundColor: "yellow", opacity: 100 }}
                         >
-                          <ChecklistPage />
+                          <ChecklistPage dispatches={dispatches}/>
                         </div>
                       </ArrowContainer>
                     )}
@@ -271,11 +268,13 @@ const ListItem: FC<ListItemProps> = (props) => {
                         })
                       }
                     >
-                      Checklist
+                      <span className="material-symbols-outlined">
+                        checklist
+                      </span>
                     </Button>
                   </Popover>
                   <Checklist dispatches={dispatches} checklists={checklists} />
-                  <ChecklistItemDetail />
+              
                   <Comment />
                 </Modal>
               </div>
@@ -284,7 +283,7 @@ const ListItem: FC<ListItemProps> = (props) => {
                   <>
                     <span>{props.title}</span>
                     <span
-                      id={(props.id)}
+                      id={(props.id.toString())}
                       onClick={handleEditClick}
                       className="material-symbols-outlined"
                     >
@@ -309,6 +308,9 @@ const ListItem: FC<ListItemProps> = (props) => {
                   </>
                 )}
               </div>
+              <Button onClick={() => setActive(true)}>
+                <span className="material-symbols-outlined">visibility</span>
+              </Button>
             </Card>
           </Styled>
         </div>

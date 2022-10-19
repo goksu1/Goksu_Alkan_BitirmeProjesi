@@ -22,12 +22,12 @@ const AddChecklistForm: FC<AddChecklistFormProps> = (props) => {
       .create({
         title: value,
         cardId: props.cardId,
-    
-   
       })
       .then(({ data }) => {
         handleAddChecklist(data);
+        console.log('data', data)
       });
+      
   };
 
   return (
