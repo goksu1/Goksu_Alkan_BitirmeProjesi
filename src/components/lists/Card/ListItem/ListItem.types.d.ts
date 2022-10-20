@@ -11,9 +11,8 @@ export type ListItemProps = {
   boardId: number;
   index:number;
   duedate: number;
-  // list:any;
-  // startIndex:number;
-  // endIndex:number;
+  description:string;
+ 
   
   
   

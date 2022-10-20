@@ -8,13 +8,14 @@ const List: FC<ListProps> = (props) => {
   const { state } = useKanbanContext();
   return (
     <Styled>
-      {props.labels.map((label: Label) => (
+      {props.labels?.map((label: Label) => (
         <ListItem
           dispatches={props.dispatches}
           id={label.id}
           key={label.id}
           title={label.title}
           labelId={state.labelId}
+          cardId={state.cardId}
         />
       ))}
     </Styled>

@@ -8,6 +8,7 @@ export type StateType = {
   labelId:number;
 checklistItemId:number;
 boardMemberId: number;
+labelId:number;
 };
 
 
@@ -21,6 +22,7 @@ export type ContextType = {
   setLabelId:any;
   setChecklistItemId:any;
   setBoardMemberId: any;
+  setLabelId:any;
  
 
 };

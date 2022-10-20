@@ -43,4 +43,24 @@ padding: 1rem;
     margin-left: 0.5rem;
   }
 }
+.delete-button{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+color: #fff;
+background-color: #b10f2e;
+height: 2.5rem;
+outline: none;
+border: none;
+border-radius: 0.5rem;
+cursor: pointer;
+font-weight: 600;
+margin-bottom: 0.5rem;
+&:hover {
+  background-color: #ef233c;
+}
+&:active {
+  background-color: #ef233c;
+}
+}
 `;

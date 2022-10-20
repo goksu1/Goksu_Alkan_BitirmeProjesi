@@ -2,7 +2,6 @@ import styled from "styled-components";
 export const Styled = styled.div`
 
   .delete-button{
-    idth: 100%;
   color: #fff;
   background-color: #b10f2e;
   height: 2.5rem;

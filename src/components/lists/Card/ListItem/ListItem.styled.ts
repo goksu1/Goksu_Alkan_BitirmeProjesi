@@ -70,4 +70,11 @@ padding: 1rem;
  .material-symbols-outlined{
   color: black;
  }
+ .description{
+  display:flex;
+  flex-direction: column;
+  width:400px;
+  height:50px;
+
+ }
 `;

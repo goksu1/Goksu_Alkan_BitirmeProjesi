@@ -29,11 +29,10 @@ const Comment = () => {
     });
   }, [state.cardId]);
   return (
-    <div style={{ marginTop: "10vh" }}>
+    <>
       <AddCommentForm dispatches={dispatches} cardId={state.cardId}/>
       <CommentDetailList dispatches={dispatches} commentdetails={comments}  />
-      
-    </div>
+    </>
   );
 };
 

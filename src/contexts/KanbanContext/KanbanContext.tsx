@@ -17,6 +17,7 @@ export const initialState: StateType = {
   labelId:0,
   checklistItemId:0,
   boardMemberId: 0,
+
 };
 export const KanbanContext = createContext<ContextType>({
   state: initialState,
@@ -28,6 +29,7 @@ export const KanbanContext = createContext<ContextType>({
   setLabelId: () => {},
   setChecklistItemId: () =>{},
   setBoardMemberId: () => {},
+
 });
 export const KanbanProvider: FC<PropsWithChildren> = ({ children }) => {
   const [state, setState] = useState<StateType>(initialState);
@@ -56,6 +58,7 @@ export const KanbanProvider: FC<PropsWithChildren> = ({ children }) => {
   function setBoardMemberId(id: number) {
     setState((prev) => ({ ...prev, boardMemberId: id }));
   }
+ 
   return (
     <KanbanContext.Provider
       value={{
@@ -68,6 +71,7 @@ export const KanbanProvider: FC<PropsWithChildren> = ({ children }) => {
         setLabelId,
         setChecklistItemId,
         setBoardMemberId,
+     
       }}
     >
       {children}

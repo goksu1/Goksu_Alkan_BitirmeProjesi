@@ -1,5 +1,5 @@
 type StateCardType = Card[];
-type Card = { id: number; title: string, duedate?:number };
+type Card = { id: number; title: string, duedate?:number, description:string };
 type ContextCardType = {
   handleDragDrop:(destinationIndex:number, sourceIndex:number)=> void;
   addCard: (card: Card) => void;

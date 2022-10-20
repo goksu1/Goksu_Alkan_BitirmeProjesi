@@ -1,6 +1,5 @@
 import React, { FC, useState, Fragment, useEffect } from "react";
 import { card } from "../../../../services/http/endpoints/card";
-// import Checklist from "../../../../components/lists/Checklist";
 import { Input, Card } from "../../../elements";
 import { InputProps } from "../../../elements/Input/Input.types";
 import { Styled } from "./ListItem.styled";
@@ -9,39 +8,48 @@ import Modal from "../CardModal";
 import { Button } from "../CardModal.styled";
 import { useKanbanContext } from "../../../../contexts/KanbanContext/KanbanContext";
 import { Draggable } from "react-beautiful-dnd";
-// import { useRef } from "react";
 import { Popover, ArrowContainer } from "react-tiny-popover";
-
 import ChecklistPage from "../../../Checklist";
 import Comment from "../../../Comment/Comment";
 import AddLabelForm from "../../../forms/AddLabelForm";
-// import Label from "../../../lists/Label/List/List";
 import dayjs, { Dayjs } from "dayjs";
-
 import { DatePicker } from "../../../DueDate/DatePicker";
-import ChecklistItemDetail from "../../../ChecklistItemDetail/ChecklistItemDetail";
 import Checklist from "../../../lists/Checklist/List/List";
+import Label from "../../../lists/Label/List";
 
 export interface IAppProps {}
 const ListItem: FC<ListItemProps> = (props) => {
-  // const clickMeButtonRef = useRef<HTMLButtonElement | undefined>();
   const { state, setCardId, setChecklistId } = useKanbanContext();
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [value, setValue] = useState<string>(props.title);
   const [active, setActive] = useState(false);
   const [date, setDate] = useState(dayjs());
   const [checklists, setChecklists] = useState<StateChecklistType>([]);
+  const [labels, setLabels] = useState<StateLabelType>([]);
   const [isPopoverOpen, setIsPopoverOpen] = useState({
     firstPopover: false,
     secondPopover: false,
     thirdPopover: false,
   });
+  const [description, setDescription] = useState({
+    title: props.title,
+    description: props.description,
+    listId: props.listId,
+  });
+
+  const DescriptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDescription((prev: any) => ({
+      ...prev,
+      description: event.target.value,
+    }));
+  };
 
   const setUpdateDate = (date: Dayjs) => {
     card.update(Number(props.id), {
       duedate: date,
       title: props.title || "",
       listId: props.listId,
+      description: props.description,
     });
     setDate(date);
   };
@@ -60,6 +68,7 @@ const ListItem: FC<ListItemProps> = (props) => {
         title: value,
         listId: props.listId,
         duedate: props.duedate,
+        description: props.description,
       })
       .then(() => {
         props.dispatches.updateCard(Number(props.id), value);
@@ -86,7 +95,6 @@ const ListItem: FC<ListItemProps> = (props) => {
         prev.map((che) => ({
           ...che,
           title: id === che.id ? title : che.title,
-  
         }))
       );
     },
@@ -102,6 +110,17 @@ const ListItem: FC<ListItemProps> = (props) => {
         })
       );
     },
+    addLabel: (label: any) => {
+      setLabels((prev) => [...prev, label]);
+    },
+
+    deleteLabel: (labelId: number) => {
+      setLabels((prev) =>
+        prev.filter((label: Label) => {
+          return label.id !== labelId;
+        })
+      );
+    },
   };
 
   useEffect(() => {
@@ -109,6 +128,20 @@ const ListItem: FC<ListItemProps> = (props) => {
       setChecklists(data.data.checklists);
     });
   }, [state.cardId]);
+
+  useEffect(() => {
+    card.getById(state.cardId).then((data) => {
+      setLabels(data.data.labels);
+    });
+  }, [state.cardId]);
+
+  useEffect(() => {
+    card.getById(state.cardId).then((data) => {
+      console.log("data", data);
+      setIsEdit(data.data.description);
+    });
+  }, [state.cardId]);
+
   return (
     <Draggable draggableId={String(props.id)} index={props.index}>
       {(provided: any) => (
@@ -119,6 +152,8 @@ const ListItem: FC<ListItemProps> = (props) => {
         >
           <Styled onClick={handleOnClick}>
             <Card title="Added Card">
+              <Label dispatches={dispatches} labels={labels} />
+              {/* <Label dispatches={dispatches} /> */}
               <h4 className="app__title">
                 Due Date: {date.format("DD - MMMM - YYYY")}
               </h4>
@@ -138,14 +173,11 @@ const ListItem: FC<ListItemProps> = (props) => {
                 </button>
               </div>
               <div>
-                <Modal
-                  active={active}
-                  hideModal={() => setActive(false)}
-                
-                >
+                <Modal active={active} hideModal={() => setActive(false)}>
                   <h1>
                     <span> Card Title: {props.title}</span>
                   </h1>
+
                   <Popover
                     isOpen={isPopoverOpen.firstPopover}
                     positions={["bottom"]}
@@ -156,7 +188,7 @@ const ListItem: FC<ListItemProps> = (props) => {
                       })
                     }
                     content={({ position, childRect, popoverRect }) => (
-                      <ArrowContainer // if you'd like an arrow, you can import the ArrowContainer!
+                      <ArrowContainer
                         position={position}
                         childRect={childRect}
                         popoverRect={popoverRect}
@@ -200,7 +232,7 @@ const ListItem: FC<ListItemProps> = (props) => {
                       })
                     }
                     content={({ position, childRect, popoverRect }) => (
-                      <ArrowContainer // if you'd like an arrow, you can import the ArrowContainer!
+                      <ArrowContainer
                         position={position}
                         childRect={childRect}
                         popoverRect={popoverRect}
@@ -211,9 +243,13 @@ const ListItem: FC<ListItemProps> = (props) => {
                         arrowClassName="popover-arrow"
                       >
                         <div
-                          style={{ backgroundColor: "yellow", opacity: 100 }}
+                          style={{ backgroundColor: "#4c4c4c", opacity: 100 }}
                         >
-                          <AddLabelForm />
+                          <AddLabelForm
+                            dispatches={dispatches}
+                            cardId={state.cardId}
+                            labelId={state.labelId}
+                          />
                           {/* <Label /> */}
                         </div>
                       </ArrowContainer>
@@ -243,7 +279,7 @@ const ListItem: FC<ListItemProps> = (props) => {
                       })
                     }
                     content={({ position, childRect, popoverRect }) => (
-                      <ArrowContainer // if you'd like an arrow, you can import the ArrowContainer!
+                      <ArrowContainer
                         position={position}
                         childRect={childRect}
                         popoverRect={popoverRect}
@@ -254,9 +290,9 @@ const ListItem: FC<ListItemProps> = (props) => {
                         arrowClassName="popover-arrow"
                       >
                         <div
-                          style={{ backgroundColor: "yellow", opacity: 100 }}
+                          style={{ backgroundColor: "#4c4c4c", opacity: 100 }}
                         >
-                          <ChecklistPage dispatches={dispatches}/>
+                          <ChecklistPage dispatches={dispatches} />
                         </div>
                       </ArrowContainer>
                     )}
@@ -273,8 +309,22 @@ const ListItem: FC<ListItemProps> = (props) => {
                       </span>
                     </Button>
                   </Popover>
+
+                  <Input
+                    type="text"
+                    value={description.description}
+                    placeholder="Description"
+                    onChange={DescriptionChange}
+                  />
+                  <span
+                    id={props.id.toString()}
+                    onClick={handleSave}
+                    className="material-symbols-outlined"
+                  >
+                    save
+                  </span>
+
                   <Checklist dispatches={dispatches} checklists={checklists} />
-              
                   <Comment />
                 </Modal>
               </div>
@@ -283,7 +333,7 @@ const ListItem: FC<ListItemProps> = (props) => {
                   <>
                     <span>{props.title}</span>
                     <span
-                      id={(props.id.toString())}
+                      id={props.id.toString()}
                       onClick={handleEditClick}
                       className="material-symbols-outlined"
                     >

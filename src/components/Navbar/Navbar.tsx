@@ -22,7 +22,6 @@ const Navbar: FC<NavbarProps> = (props) => {
           <>
             <NavLink to="/board">Board</NavLink>
             <NavLink to="/change-password">Change Password</NavLink>
-            <NavLink to="/board-member">Members</NavLink>
 
             {isLoggedIn ? (
               <span className="welcome-span">Welcome {username}!</span>

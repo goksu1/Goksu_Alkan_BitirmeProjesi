@@ -1,10 +1,10 @@
 import React, { FC, useState } from "react";
 import { checklist } from "../../../../services/http/endpoints/checklist";
-import { Input, Card, Button } from "../../../elements";
+import { Input} from "../../../elements";
 import { InputProps } from "../../../elements/Input/Input.types";
 import { ListItemProps } from "./ListItem.types";
 
-import { ChecklistCard, Styled } from "./ListItem.styled";
+import { ChecklistCard } from "./ListItem.styled";
 import { useKanbanContext } from "../../../../contexts/KanbanContext/KanbanContext";
 import ChecklistItemDetail from "../../../ChecklistItemDetail";
 
@@ -49,50 +49,13 @@ const ListItem: FC<ListItemProps> = (props) => {
   const handleOnClick = () => {
     setChecklistId(props.id);
   };
+  
 
-  // const totalIsCheckedItem = () => {
-  //   let total = 0;
-  //   checklist?.items.forEach((item) => {
-  //     if (item.isChecked === true) {
-  //       total += 1;
-  //     }
-  //   });
-  //   return total;
-  // };
   return (
     
       <ChecklistCard title="Added Checklist" onClick={handleOnClick}>
         <h1>Added Checklist</h1>
-        <ChecklistItemDetail />
-        {/* <Card
-        value={
-          totalIsCheckedItem() === 0 && checklist?.items.length === 0
-            ? 0
-            : (totalIsCheckedItem() / checklist?.items.length!) * 100
-        }
-        title="df"
-        /> */}
        
-     
-      {/* {checklist?.items.map((item) => {
-        return <CardModalChecklistItem key={item.id} checklistItem={item} </Card> */}
-        {/* <label
-          data-noredirect="true"
-          style={{
-            textDecoration: props.isChecked ? "line-through" : undefined,
-          }}
-        >
-          <input
-            data-noredirect="true"
-            onChange={handleSave}
-            type="checkbox"
-            checked={props.isChecked}
-            tabIndex={-1}
-          ></input>
-          <span>{props.title}</span>
-        </label> */}
-
-
         <div className="list-item">
           {!isEdit ? (
             <>
@@ -128,6 +91,7 @@ const ListItem: FC<ListItemProps> = (props) => {
             Delete
             <span className="material-symbols-outlined">delete</span>
           </button>
+          <ChecklistItemDetail />
         </div>
         
       </ChecklistCard>

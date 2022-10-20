@@ -1,13 +1,9 @@
 import React, { useState } from "react";
 
 import type { Dayjs } from "dayjs";
-
-// import { defaultDatePickerFormat } from "./utils";
-
 import { DatePickerCalendar } from "./DatePickerCalender/DatePickerCalendar";
 import { DatePickerSelector } from "./DayPickerSelector/DatePickerSelector";
 import { Styled } from "./DatePicker.styled";
-
 
 export interface IDatePickerProps {
   selectedDate: Dayjs;
@@ -18,26 +14,21 @@ export interface IDatePickerProps {
 
 export const DatePicker: React.FC<IDatePickerProps> = ({
   selectedDate,
-//   selectorDateFormat = defaultDatePickerFormat,
-  onChange
+  onChange,
 }) => {
   const [shownDate, setShownDate] = useState(selectedDate.clone());
 
   return (
     <Styled>
-    <div className={"DatePicker"}>
-      <DatePickerSelector
-        shownDate={shownDate}
-        // selectorDateFormat={selectorDateFormat}
-        setShownDate={setShownDate}
-      />
+      <div className={"DatePicker"}>
+        <DatePickerSelector shownDate={shownDate} setShownDate={setShownDate} />
 
-      <DatePickerCalendar
-        selectedDate={selectedDate}
-        shownDate={shownDate}
-        onChange={onChange}
-      />
-    </div>
+        <DatePickerCalendar
+          selectedDate={selectedDate}
+          shownDate={shownDate}
+          onChange={onChange}
+        />
+      </div>
     </Styled>
   );
 };

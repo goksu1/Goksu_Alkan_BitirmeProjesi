@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import {comment } from "../../../services/http/endpoints/comment";
-import { Input,Box } from "../../elements";
+import { Input, Card } from "../../elements";
 import { InputProps } from "../../elements/Input/Input.types";
 import { Styled } from "./AddCommentForm.styled";
 import { AddCommentFormProps } from "./AddCommentForm.types";
@@ -28,11 +28,11 @@ const AddCommentForm: FC<AddCommentFormProps> = (props) => {
   return (
     <Styled>
       <>
-        <Box title="Add Comment">
+        <Card title="Add Comment">
           <span className="list-span">
           </span>
           <Input
-            placeholder="Enter List Name"
+            placeholder="Enter Comment Name"
             type="text"
             onChange={handleChange}
           />
@@ -40,7 +40,7 @@ const AddCommentForm: FC<AddCommentFormProps> = (props) => {
             Add
             <span className="material-symbols-outlined">library_add</span>
           </button>
-        </Box>
+        </Card>
       </>
     </Styled>
   );

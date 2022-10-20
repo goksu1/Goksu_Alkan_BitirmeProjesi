@@ -20,6 +20,7 @@ const AddCardForm: FC<AddCardFormProps> = (props) => {
       .create({
         title: value,
         listId: props.listId,
+        description:props.description,
       })
       .then(({ data }) => {
         handleAddCard(data);

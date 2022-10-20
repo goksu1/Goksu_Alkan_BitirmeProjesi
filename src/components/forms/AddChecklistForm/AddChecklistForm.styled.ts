@@ -19,13 +19,7 @@ export const Styled = styled.div`
       margin-left: 0.5rem;
     }
   }
-  // .board-select {
-  //   margin-left: 0.5rem;
-  //   border: 1px solid #b62018;
-  //   border-radius: 0.5rem;
-  //   background-color: inherit;
-  //   height: 40px;
-  // }
+
   .list-span {
     color: #b10f2e;
     margin: 0 0 40px 0;

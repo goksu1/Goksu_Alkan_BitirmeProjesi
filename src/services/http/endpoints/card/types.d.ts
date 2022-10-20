@@ -3,9 +3,7 @@ export type CreateCardRequestPayload = {
 	title: string,
 	listId: number,
 	duedate?:number | Dayjs,
-	
-	// description: string,
-	// duedate: string,
+	description?:string,
 	
 
 };

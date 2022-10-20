@@ -1,1 +1,3 @@
-export type AddCardFormProps = { dispatches:ContextCardType, listId:number};
+export type AddCardFormProps = {
+  description?: string; dispatches:ContextCardType, listId:number
+};

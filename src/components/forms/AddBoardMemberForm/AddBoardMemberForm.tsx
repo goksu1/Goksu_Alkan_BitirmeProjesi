@@ -1,8 +1,8 @@
 import React, { FC, useState } from "react";
 import {boardMember } from "../../../services/http/endpoints/boardMember";
-import { Input,Box } from "../../elements";
+import { Input} from "../../elements";
 import { InputProps } from "../../elements/Input/Input.types";
-import { Styled } from "./AddBoardMemberForm.styled";
+import { CardContainer } from "../AddCardForm/AddCardForm.styled";
 import { AddBoardMemberFormProps } from "./AddBoardMemberForm.types";
 
 const AddBoardMemberForm: FC<AddBoardMemberFormProps> = (props) => {
@@ -27,13 +27,11 @@ const AddBoardMemberForm: FC<AddBoardMemberFormProps> = (props) => {
   };
 
   return (
-    <Styled>
-      <div style={{ marginTop: "10vh" }}>
-        <Box title="Add Member">
+    <CardContainer title="Add Member">
           <span className="list-span">
           </span>
           <Input
-            placeholder="Enter List Name"
+            placeholder="Enter Member Name"
             type="text"
             onChange={handleChange}
           />
@@ -41,9 +39,7 @@ const AddBoardMemberForm: FC<AddBoardMemberFormProps> = (props) => {
             Add
             <span className="material-symbols-outlined">library_add</span>
           </button>
-        </Box>
-      </div>
-    </Styled>
+      </CardContainer>
   );
 };
 

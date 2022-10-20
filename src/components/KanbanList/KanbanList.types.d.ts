@@ -6,13 +6,6 @@ type ContextListType = {
   selectList: (listId: number) => void;
   deleteList:(listId: number) => void;
 };
-type StateLabelType = Label[];
 
-type Label = { id: number; title: string };
-type ContextLabelType = {
-  addLabel: (label: Label) => void;
-  updateLabel: (id: number, title:string) => void;
-  selectLabel: (labelId: number) => void;
-  deleteLabel:(labelId: number) => void;
-};
+
 

@@ -29,13 +29,7 @@ export const Styled = styled.div`
       border-color: red;
       box-shadow: 0 0 10px 1px pink;
     }
-  // .board-select {
-  //   margin-left: 0.5rem;
-  //   border: 1px solid #b62018;
-  //   border-radius: 0.5rem;
-  //   background-color: inherit;
-  //   height: 40px;
-  // }
+  
 
 `;
 

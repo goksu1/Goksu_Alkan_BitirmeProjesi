@@ -1,1 +1,1 @@
-export type ListProps = {dispatches: ContextLabelType, labels:Label[]};
+export type ListProps = {dispatches: ContextChecklistType, labels:Label[]};

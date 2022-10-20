@@ -6,8 +6,8 @@ import {
 
 export const create = (
   payload: CreateCardLabelRequestPayload
-): Promise<CreateCardLabelResponseType> => service.post("cardLabel/create", payload);
+): Promise<CreateCardLabelResponseType> => service.post("card-label", payload);
 
 
-export const destroy = (id: number) => service.get(`cardLabel/destroy?id=${id}`);
+export const destroy = (id: number) => service.delete(`card-label/${id}`);
 

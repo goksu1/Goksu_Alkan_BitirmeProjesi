@@ -29,20 +29,6 @@ console.log('source', source)
     props.dispatches.handleDragDrop(destination.index, source.index)
   }
 
-
-  
- 
-    // const [itemToMoved] = cards.splice(result.source.index, 1);
-    // listsArr.splice(result.destination.index, 0, itemToMoved);
-    // dispatch(listActions.setListArr(listsArr));
-
-    // setItems((prev) => {
-    //   //const temporaryArr= Array.from(itemsArr)
-    //   const [itemToMoved] = prev.splice(result.source.index, 1);
-    //   prev.splice(result.destination.index, 0, itemToMoved);
-    //   return prev;
-    // });
-
   return (
     <DragDropContext  onDragEnd={onDragEnd} >
     <Droppable droppableId={String(state.listId)}>
@@ -65,6 +51,7 @@ console.log('source', source)
               id={card.id}
               index={index} 
              duedate={card.duedate || 0}
+             description={card.description}
             />
             
           ))}

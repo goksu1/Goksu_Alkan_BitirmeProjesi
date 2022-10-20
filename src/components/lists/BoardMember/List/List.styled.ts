@@ -1,10 +1,10 @@
 import styled from "styled-components";
 export const Styled = styled.div`
-  padding-left: 2rem;
-  padding-right: 2rem;
-  display: flex;
-margin-right:2rem;
-
+width:80px;
+  padding-left: 0.1rem;
+  padding-right: 0.1rem;
+display: flex;
+margin-top:10px;
   .list-item {
     margin-bottom: 0.5rem;
     padding: 0.5rem;

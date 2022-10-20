@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import { checklistitem } from "../../../services/http/endpoints/checklistitem";
-import { Input, Box } from "../../elements";
+import { Input, Card } from "../../elements";
 import { InputProps } from "../../elements/Input/Input.types";
 
 import { Styled } from "./AddChecklistItemForm.styled";
@@ -31,12 +31,11 @@ const AddChecklistItemForm: FC<AddChecklistItemFormProps> = (props) => {
 
   return (
     <Styled>
-      <div style={{ marginTop: "10vh" }}>
-        <Box title="Add ChecklistItem">
+        <Card title="Add ChecklistItem">
           <span className="list-span">
           </span>
           <Input
-            placeholder="Enter List Name"
+            placeholder="Enter Checklist Item Name"
             type="text"
             onChange={handleChange}
           />
@@ -44,8 +43,7 @@ const AddChecklistItemForm: FC<AddChecklistItemFormProps> = (props) => {
             Add
             <span className="material-symbols-outlined">library_add</span>
           </button>
-        </Box>
-      </div>
+        </Card>
     </Styled>
   );
 };

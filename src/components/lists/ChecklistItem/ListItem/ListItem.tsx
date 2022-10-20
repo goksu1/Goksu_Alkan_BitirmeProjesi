@@ -1,10 +1,8 @@
 import React, { FC, useState } from "react";
 import { checklistitem } from "../../../../services/http/endpoints/checklistitem";
-import { Input, Card, Button } from "../../../elements";
-import { InputProps } from "../../../elements/Input/Input.types";
 import { ListItemProps } from "./ListItem.types";
 
-import { CardChecklistItem, Styled } from "./ListItem.styled";
+import { CardChecklistItem } from "./ListItem.styled";
 import { useKanbanContext } from "../../../../contexts/KanbanContext/KanbanContext";
 
 const ListItem: FC<ListItemProps> = (props) => {
@@ -40,6 +38,7 @@ const ListItem: FC<ListItemProps> = (props) => {
   const handleOnClick = () => {
     setChecklistItemId(props.id);
   };
+
   return (
 
       <CardChecklistItem title="Added ChecklistItem"  onClick={handleOnClick}>

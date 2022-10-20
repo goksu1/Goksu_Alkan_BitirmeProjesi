@@ -11,4 +11,5 @@ export type ListItemProps = {
   cardId: number;
   isChecked:boolean;
   
+  
 };

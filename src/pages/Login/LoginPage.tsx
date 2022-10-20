@@ -14,7 +14,6 @@ const LoginPage: FC<LoginPageProps> = (props) => {
     auth.login(values).then((res) => {
       if (res.status === 200) {
         login(res.data.token, res.data.username);
-        // props.onSuccess?.(res.data.token);
         navigate("/");
       }
     });

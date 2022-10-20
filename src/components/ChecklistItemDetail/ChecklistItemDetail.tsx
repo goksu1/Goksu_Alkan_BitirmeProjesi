@@ -32,9 +32,7 @@ const Comment = () => {
     },
   };
 
-  // data.data.checklists[0].map((checklist:any)=>{
-  //   return checklist.items
-  // })
+  
   useEffect(() => {
     card.getById(state.cardId).then((data) => {
       console.log('data', data)
